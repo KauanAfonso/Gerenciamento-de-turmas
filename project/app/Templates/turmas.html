@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-<h2>Turmas</h2>
+<h1>turmas</h1>
 
-    <ul>
+<ul>
+{% for i in turmas %}
 
-    {% for i in turmas %}
+<li>{{i.serie_turma}}</li>
 
-    <li>{{i.serie_turma}}</li>
+{%endfor%}
 
-    {% endfor %}
-
-    </ul>
-
-</body>
-</html>
+</ul>

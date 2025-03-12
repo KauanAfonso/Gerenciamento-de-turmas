@@ -10,7 +10,53 @@ class Professor(models.Model):
 
 class Turma(models.Model):
     serie_turma = models.CharField(max_length=8)
-    professores = models.ManyToManyField(Professor, related_name='turmas')
-
+    
     def __str__(self):
         return self.serie_turma
+
+
+class Horario(models.Model):
+    horarios = [
+        ("7:00h", "7:45h"),
+        ("7:45h", "8:30h"),
+        ("8:30h", "9:15h"),
+        ("9:15h", "10:00h"),
+        ("10:00h", "10:45h"),
+        ("10:45h", "11:30h"),
+        ("11:30h", "12:15h"),
+        ("12:15h", "13:00h"),
+        ("13:00h", "13:45h"),
+        ("13:45h", "14:30h"),
+        ("14:30h", "15:15h"),
+        ("15:15h", "16:00h"),
+        ("16:00h", "16:45h"),
+        ("16:45h", "17:30h"),
+        ("17:30h", "18:15h"),
+    ]
+
+
+    horario_aula = models.CharField(max_length=50,choices=horarios)
+
+    def __str__(self):
+        return self.horario_aula
+
+    
+class Turma_Professor(models.Model):
+
+    materias = [
+        ("Matematica", "Matemática"),
+        ("Portugues", "Português"),
+        ("Historia", "História"),
+        ("Geografia", "Geografia"),
+        ("Quimica", "Química"),
+        ("Fisica", "Física"),
+        ("Biologia", "Biologia"),
+    ]
+
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
+    materia = models.CharField(max_length=50,choices=materias)
+    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.professor.nome} - {self.turma.serie_turma}"
