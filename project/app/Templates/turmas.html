@@ -4,6 +4,7 @@
 {% for i in turmas %}
 
 <li>{{i.serie_turma}}</li>
+<a href="{% url 'detalhes_turmas' i.pk %}">Detalhes</a>
 
 {%endfor%}
 

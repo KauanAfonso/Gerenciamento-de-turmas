@@ -23,7 +23,8 @@ def ver_professor_turma(request, pk):
         for tp in turma_professores:
             professores_materias.append({
                 'professor': tp.professor,
-                'materia': tp.materia
+                'materia': tp.materia,
+                'horario': tp.horario,
             })
 
         return render(request, "detalhes.html", {"turma": id_turma, "professores": professores_materias})
