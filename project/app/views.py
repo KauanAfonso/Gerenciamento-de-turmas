@@ -15,19 +15,22 @@ def mostrar_turmas(request):
 
 def ver_professor_turma(request, pk):
     try:
-        id_turma = get_object_or_404(Turma, pk=pk)
-        turma_professores = Turma_Professor.objects.filter(turma=id_turma)
-        
+        turma = get_object_or_404(Turma, pk=pk)
+        professores = Aulas.objects.filter(pk_turma = turma)
         professores_materias = []
 
-        for tp in turma_professores:
+        for i in professores:
+            print(i)
             professores_materias.append({
-                'professor': tp.professor,
-                'materia': tp.materia,
-                'horario': tp.horario,
+                'professor': i.pk_professor,
+                'materia': i.pk_materia,
+                'horario': i.pk_horario,
+                'turma': i.pk_turma,
+                'dia_semana': i.pk_dias_semana
             })
 
-        return render(request, "detalhes.html", {"turma": id_turma, "professores": professores_materias})
+        print(professores)
+        return render(request, "detalhes.html", {"turma": turma, "professores": professores_materias})
     except Exception as e:
         print(f"Error: {e}")
         

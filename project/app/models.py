@@ -17,6 +17,9 @@ class Aluno(models.Model):
     nome_completo = models.CharField(max_length=55)
     pk_turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nome_completo
+
 
 class Horario(models.Model):
     horarios = [
@@ -36,7 +39,7 @@ class Horario(models.Model):
         ("16:45h", "16:45h"),
         ("17:30h", "17:30h"),
     ]
-    horario_aula = models.CharField(max_length=50,choices=horarios)
+    horario_aula = models.CharField(max_length=50,choices=horarios,unique=True)
 
     def __str__(self):
         return self.horario_aula
@@ -65,7 +68,7 @@ class Dias_semanas(models.Model):
         ("QUI", "Quinta-Feira"),
         ("SEX", "Sexta-Feira"),
     ]
-    dia = models.CharField(max_length=55,choices=dias)
+    dia = models.CharField(max_length=55,choices=dias, unique=True)
 
     def __str__(self):
         return self.dia
@@ -74,7 +77,7 @@ class Dias_semanas_Aulas(models.Model):
     pk_dia_semana = models.ForeignKey(Dias_semanas, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.pk_dia_semana
+        return str(self.pk_dia_semana)
 
 class Aulas(models.Model):
 
@@ -85,4 +88,4 @@ class Aulas(models.Model):
     pk_dias_semana = models.ForeignKey(Dias_semanas_Aulas,on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.pk_professor} - {self.pk_turma}"
+        return f"{self.pk_professor} - {self.pk_turma} - {str(self.pk_materia)} - {str(self.pk_horario)} - {str(self.pk_dias_semana)}"
