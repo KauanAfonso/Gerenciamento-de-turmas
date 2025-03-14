@@ -7,12 +7,15 @@ class Professor(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Turma(models.Model):
     serie_turma = models.CharField(max_length=8)
     
     def __str__(self):
         return self.serie_turma
+    
+class Aluno(models.Model):
+    nome_completo = models.CharField(max_length=55)
+    pk_turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
 
 class Horario(models.Model):
@@ -33,16 +36,12 @@ class Horario(models.Model):
         ("16:45h", "16:45h"),
         ("17:30h", "17:30h"),
     ]
-
-
     horario_aula = models.CharField(max_length=50,choices=horarios)
 
     def __str__(self):
         return self.horario_aula
-
     
-class Turma_Professor(models.Model):
-
+class Materia(models.Model):
     materias = [
         ("Matematica", "Matemática"),
         ("Portugues", "Português"),
@@ -52,11 +51,38 @@ class Turma_Professor(models.Model):
         ("Fisica", "Física"),
         ("Biologia", "Biologia"),
     ]
+    nome_materia = models.CharField(max_length=50,choices=materias)
 
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
-    materia = models.CharField(max_length=50,choices=materias)
-    horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nome_materia
+    
+
+class Dias_semanas(models.Model):
+    dias = [
+        ("SEG", "Segunda-Feira"),
+        ("TER", "Terça-Feira"),
+        ("QUA", "Quarta-Feira"),
+        ("QUI", "Quinta-Feira"),
+        ("SEX", "Sexta-Feira"),
+    ]
+    dia = models.CharField(max_length=55,choices=dias)
+
+    def __str__(self):
+        return self.dia
+    
+class Dias_semanas_Aulas(models.Model):
+    pk_dia_semana = models.ForeignKey(Dias_semanas, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.pk_dia_semana
+
+class Aulas(models.Model):
+
+    pk_professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    pk_turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
+    pk_materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
+    pk_horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
+    pk_dias_semana = models.ForeignKey(Dias_semanas_Aulas,on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"{self.professor.nome} - {self.turma.serie_turma}"
+        return f"{self.pk_professor} - {self.pk_turma}"
