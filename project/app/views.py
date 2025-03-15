@@ -12,29 +12,27 @@ def mostrar_turmas(request):
         return "erro"
     return render(request, "turmas.html" , {"turmas": turma})
     
-
-def ver_professor_turma(request, pk):
+'''
+Função que retornará as ifnromações da tabela de aulas 
+'''
+def visualizar_sala(request, pk):
     try:
-        turma = get_object_or_404(Turma, pk=pk)
-        professores = Aulas.objects.filter(pk_turma = turma)
-        professores_materias = []
+        turma = get_object_or_404(Turma, pk=pk) #Pegando o id da turma 
+        aulas = Aulas.objects.filter(pk_turma = turma) #Mesclando as tabelas relacionadas a aulas pela FK da turma
+        aulas_info = []
+        alunos = Aluno.objects.filter(pk_turma = pk)
 
-        for i in professores:
-            print(i)
-            professores_materias.append({
-                'professor': i.pk_professor,
-                'materia': i.pk_materia,
-                'horario': i.pk_horario,
-                'turma': i.pk_turma,
-                'dia_semana': i.pk_dias_semana
-            })
+        for aula in aulas:
+            aulas_info.append({
+                'professor': aula.pk_professor,
+                'materia': aula.pk_materia,
+                'horario': aula.pk_horario,
+                'turma': aula.pk_turma,
+                'dia_semana': aula.pk_dias_semana
+            })#retoronado os dados 
 
-        print(professores)
-        return render(request, "detalhes.html", {"turma": turma, "professores": professores_materias})
+        return render(request, "detalhes.html", {"turma": turma, "aulas": aulas_info, "alunos":alunos})
     except Exception as e:
         print(f"Error: {e}")
         
-        # Return a 404 response with a custom error message
-        return HttpResponseNotFound("Ocorreu um erro ao tentar carregar a turma e os professores.")
-
-
+        return HttpResponseNotFound("Ocorreu um erro ao tentar carregar a turma e os professores.") #mensagem de erro caso for nescessario

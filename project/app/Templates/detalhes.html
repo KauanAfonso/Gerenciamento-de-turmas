@@ -1,7 +1,7 @@
 <h1>{{ turma.serie_turma }}</h1>
 <ul>
-    {% if professores %}
-        {% for i in professores %}
+    {% if aulas %}
+        {% for i in aulas %}
             <li>Professor: {{ i.professor }}</li>
             <li>Matéria: {{ i.materia }}</li>
             <li>Horário: {{ i.horario }}</li>
@@ -10,5 +10,20 @@
         {% endfor %}
     {% else %}
         <li>Nenhum professor da sala.</li>
+    {% endif %}
+</ul>
+
+
+<h1>Alunos</h1>
+
+
+<ul>
+    {% if alunos %}
+        {% for i in alunos %}
+            <li>Aluno: {{ i.nome_completo }}</li>   
+            <br>
+        {% endfor %}
+    {% else %}
+        <li>Nenhum aluno cadastrado.</li>
     {% endif %}
 </ul>
