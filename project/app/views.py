@@ -11,6 +11,15 @@ def mostrar_turmas(request):
     except:
         return "erro"
     return render(request, "turmas.html" , {"turmas": turma})
+
+
+def mostrar_professores(request):
+    try:
+        professores = Professor.objects.all()
+    except Exception as e:
+        print(f"erro: {e}")
+        return HttpResponseNotFound('Erro ao tentar carregar os professores')
+    return render(request, 'professores.html', {'professores':professores})
     
 '''
 Função que retornará as ifnromações da tabela de aulas 
@@ -36,3 +45,20 @@ def visualizar_sala(request, pk):
         print(f"Error: {e}")
         
         return HttpResponseNotFound("Ocorreu um erro ao tentar carregar a turma e os professores.") #mensagem de erro caso for nescessario
+
+
+def visualizar_turmas_professor(request, pk):
+    professor = get_object_or_404(Professor,pk=pk)
+    aulas = Aulas.objects.filter(pk_professor =professor)
+    professor_aulas = []
+    
+    for aula in aulas:
+        professor_aulas.append(
+            {
+                'turma': aula.pk_turma,
+                'materia': aula.pk_materia,
+                'horario': aula.pk_horario,
+                'dia_semana': aula.pk_dias_semana
+            }
+        )
+    return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})

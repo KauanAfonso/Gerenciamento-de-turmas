@@ -1,0 +1,14 @@
+<h1>Professor</h1>
+<ul>
+    {% if professores %}
+        {% for professor in professores %}
+            <li>Turma: {{ professor.turma}}</li>
+            <li>Matéria: {{ professor.materia }}</li>
+            <li>Horário: {{ professor.horario }}</li>
+            <li>Dia da semana: {{ professor.dia_semana}}</li>
+            <br>
+        {% endfor %}
+    {% else %}
+        <li>Nenhum professor da sala.</li>
+    {% endif %}
+</ul>

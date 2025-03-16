@@ -1,0 +1,6 @@
+<ul>
+{%for professor in professores%}
+    <li>Nome {{professor.nome}}</li>
+    <a href="{% url 'visualizar_turmas_professor' professor.pk %}">Detalhes</a>
+{% endfor %}
+</ul>
