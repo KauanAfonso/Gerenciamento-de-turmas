@@ -64,12 +64,12 @@ def visualizar_turmas_professor(request, pk):
         )
     return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})
 
-def criar_aula(request):
+def criar_aula(request,pk):
     if request.method == 'POST':
         formulario = AulasForm(request.POST)
 
         if formulario.is_valid():
             return redirect("detalhes.html") 
     else:
-        formulario = AulasForm()
+        formulario = AulasForm(initial={'pk_turma':pk})
     return render(request, 'form_aula.html', {'form':formulario})           

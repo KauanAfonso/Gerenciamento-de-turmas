@@ -17,6 +17,7 @@ class AlunoForm(forms.ModelForm):
         fields = '__all__'
 
 class AulasForm(forms.ModelForm):
+    pk_turma = forms.IntegerField(label='Turma', required=False)  # Adicionando o campo fora da classe Meta
     class Meta:
         model = Aulas
         fields = '__all__'
