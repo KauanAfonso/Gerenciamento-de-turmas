@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import Group
 
 # Create your models here.
 class Professor(models.Model):
@@ -16,6 +17,7 @@ class Turma(models.Model):
 class Aluno(models.Model):
     nome_completo = models.CharField(max_length=55)
     pk_turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
+    email = models.CharField(max_length=255,default='')
 
     def __str__(self):
         return self.nome_completo

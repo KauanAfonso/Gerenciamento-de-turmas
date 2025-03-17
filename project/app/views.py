@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect , get_object_or_404, get_list_or_404
 from .models import *
 from django.http import HttpResponseNotFound
+from .forms import *
 
 # Create your views here.
 
@@ -62,3 +63,13 @@ def visualizar_turmas_professor(request, pk):
             }
         )
     return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})
+
+def criar_aula(request):
+    if request.method == 'POST':
+        formulario = AulasForm(request.POST)
+
+        if formulario.is_valid():
+            return redirect("detalhes.html") 
+    else:
+        formulario = AulasForm()
+    return render(request, 'form_aula.html', {'form':formulario})           
