@@ -9,7 +9,7 @@ class Professor(models.Model):
         return self.nome
 
 class Turma(models.Model):
-    serie_turma = models.CharField(max_length=8)
+    serie_turma = models.CharField(max_length=8, unique=True)
     
     def __str__(self):
         return self.serie_turma

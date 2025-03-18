@@ -1,10 +1,15 @@
 <h1>turmas</h1>
 
+
+<a href="{% url 'criar_turma' %}">Criar Turma</a>
+
 <ul>
 {% for i in turmas %}
 
 <li>{{i.serie_turma}}</li>
 <a href="{% url 'detalhes_turmas' i.pk %}">Detalhes</a>
+<a href="{% url 'atualizar_turma' i.pk %}">Editar Turma</a>
+<a href="{% url 'excluir_turma' i.pk %}">Excluir turma</a>
 
 {%endfor%}
 
