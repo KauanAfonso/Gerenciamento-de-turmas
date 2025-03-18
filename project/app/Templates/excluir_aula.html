@@ -1,0 +1,13 @@
+<h1>Tem certeza de que deseja excluir a aula?</h1>
+
+<p><strong>Professor:</strong> {{ aula.pk_professor }}</p>
+<p><strong>Matéria:</strong> {{ aula.pk_materia }}</p>
+<p><strong>Horário:</strong> {{ aula.pk_horario }}</p>
+<p><strong>Dia da Semana:</strong> {{ aula.pk_dias_semana }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sim, excluir</button>
+</form>
+
+<a href="{% url 'detalhes_turmas' pk=aula.pk_turma.pk %}">Cancelar</a>

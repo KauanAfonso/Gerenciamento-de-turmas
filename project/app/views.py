@@ -34,6 +34,7 @@ def visualizar_sala(request, pk):
 
         for aula in aulas:
             aulas_info.append({
+                'pk':aula.pk,
                 'professor': aula.pk_professor,
                 'materia': aula.pk_materia,
                 'horario': aula.pk_horario,
@@ -64,12 +65,46 @@ def visualizar_turmas_professor(request, pk):
         )
     return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})
 
+
+
+''''
+
+-----------------------------------PARTE DO ADMINISTRADOR-------------
+
+'''
+
 def criar_aula(request,pk):
     if request.method == 'POST':
         formulario = AulasForm(request.POST)
 
         if formulario.is_valid():
+            formulario.save()
             return redirect("detalhes.html") 
+            
     else:
         formulario = AulasForm(initial={'pk_turma':pk})
     return render(request, 'form_aula.html', {'form':formulario})           
+
+
+def deletar_aula(request, pk):
+    aula = get_object_or_404(Aulas,pk=pk)
+
+    if request.method == "POST":
+        aula.delete()
+        return redirect("mostrar_turmas")
+    else:
+        return render(request, "excluir_aula.html", {"aula":aula})
+    
+
+def atualizar_aula(request,pk):
+    aula = get_object_or_404(Aulas, pk=pk)
+    if request.method == 'POST':
+        formulario = AulasForm(request.POST, instance=aula)
+
+        if formulario.is_valid():
+            formulario.save()
+            return redirect("detalhes.html") 
+            
+    else:
+        formulario = AulasForm(instance=aula)
+    return render(request, 'form_aula.html', {'form':formulario})     

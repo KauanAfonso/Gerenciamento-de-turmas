@@ -1,8 +1,10 @@
 <h1>{{ turma.serie_turma }}</h1>
-<a href="{%url 'criar_aula' turma.pk%}">Criar aula</a>
+<a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
 <ul>
     {% if aulas %}
         {% for i in aulas %}
+            <a href="{% url 'deletar_aula' pk=i.pk %}">Deletar Aula</a>
+            <a href="{% url 'atualizar_aula' pk=i.pk %}">Atualizar Aula</a>
             <li>Professor: {{ i.professor }}</li>
             <li>Matéria: {{ i.materia }}</li>
             <li>Horário: {{ i.horario }}</li>
