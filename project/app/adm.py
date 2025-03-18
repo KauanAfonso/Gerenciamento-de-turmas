@@ -114,4 +114,4 @@ def excluir_turma(request, pk):
             return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Deseja excluir essa sala?"})
     except Exception as e:
         print('erro: ' , e)
-        return HttpResponseNotFound("Erro ao tentar excluir a turma")
+        return HttpResponseNotFound("Erro ao tentar excluir a turma" )
