@@ -115,3 +115,19 @@ def excluir_turma(request, pk):
     except Exception as e:
         print('erro: ' , e)
         return HttpResponseNotFound("Erro ao tentar excluir a turma" )
+
+
+#Aluno
+def criar_aluno(request,pk):
+    try:
+        if request.method == 'POST':
+            formulario = AlunoForm(request.POST)
+            if formulario.is_valid():
+                formulario.save()
+                return redirect("mostrar_turmas")
+        else:
+            formulario = AlunoForm(initial={'pk_turma':pk})
+        return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Criar esse aluno?"})
+    except Exception as e:
+        print('erro' , e)
+        return HttpResponseNotFound("Erro ao tentar criar aluno.")

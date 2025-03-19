@@ -1,4 +1,4 @@
-<h1>{{ turma.serie_turma }}</h1>
+<h1>{{ turma.serie_turma }}</h1><br>
 <a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
 <ul>
     {% if aulas %}
@@ -21,9 +21,13 @@
 
 
 <ul>
+    
     {% if alunos %}
+    <a href="{%url 'criar_aluno' pk=pk_turma%}">Criar aluno</a>
         {% for i in alunos %}
-            <li>Aluno: {{ i.nome_completo }}</li>   
+            <li>Aluno: {{ i.nome_completo }}</li>  
+            <a href="">Editar aluno</a>
+            <a href="">Excluir Aluno</a>
             <br>
         {% endfor %}
     {% else %}

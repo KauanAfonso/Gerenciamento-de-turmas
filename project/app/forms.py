@@ -14,6 +14,7 @@ class TurmasForm(forms.ModelForm):
 class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
+        pk_turma = forms.IntegerField(label='aa', required=False)  # Adicionando o campo dentro da classe meta para que o valor padrão ja apareça la
         fields = '__all__'
 
 class AulasForm(forms.ModelForm):
