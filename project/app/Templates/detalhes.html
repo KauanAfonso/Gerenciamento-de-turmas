@@ -23,7 +23,7 @@
 <ul>
     
     {% if alunos %}
-    <a href="{%url 'criar_aluno' pk=pk_turma%}">Criar aluno</a>
+    <a href="{%url 'criar_aluno' pk=turma.pk%}">Criar aluno</a>
         {% for i in alunos %}
             <li>Aluno: {{ i.nome_completo }}</li>  
             <a href="">Editar aluno</a>
