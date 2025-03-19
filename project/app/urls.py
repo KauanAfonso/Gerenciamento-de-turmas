@@ -15,4 +15,5 @@ urlpatterns = [
     path("turmas/atualizar/<int:pk>", adm.atualizar_turma, name='atualizar_turma'),
     path('turmas/deletar/<int:pk>' , adm.excluir_turma, name='excluir_turma'),
     path("turmas/criar_aluno/<int:pk>", adm.criar_aluno, name='criar_aluno'),
+    path("turmas/editar_aluno/<int:pk>", adm.atualizar_aluno, name='atualizar_aluno')
 ]

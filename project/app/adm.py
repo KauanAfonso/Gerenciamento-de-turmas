@@ -131,3 +131,17 @@ def criar_aluno(request,pk):
     except Exception as e:
         print('erro' , e)
         return HttpResponseNotFound("Erro ao tentar criar aluno.")
+
+def atualizar_aluno(request, pk):
+    id_aluno = get_object_or_404(Aluno, pk=pk)
+    try:
+        formulario = AlunoForm(request.POST, instance=id_aluno)
+        if formulario.is_valid():
+            formulario.save()
+            redirect('mostrar_turmas')
+        else:
+            formulario = AlunoForm(instance=id_aluno)
+            return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Criar esse aluno?"})
+    except Exception as e:
+        print('erro' , e)
+        return HttpResponseNotFound("Erro ao tentar editar o aluno.")
