@@ -21,13 +21,13 @@
 
 
 <ul>
-    
-    {% if alunos %}
     <a href="{%url 'criar_aluno' pk=turma.pk%}">Criar aluno</a>
+    {% if alunos %}
         {% for i in alunos %}
-            <li>Aluno: {{ i.nome_completo }}</li>  
+            <li>Aluno: {{ i.first_name }} {{ i.last_name }}</li>  
            
             <a href="{% url 'atualizar_aluno' pk=i.pk %}">Atualizar aluno</a>
+            <a href="{% url 'excluir_aluno' pk=i.pk %}">excluir aluno</a>
             <br>
         {% endfor %}
     {% else %}

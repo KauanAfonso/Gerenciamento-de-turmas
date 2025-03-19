@@ -138,10 +138,25 @@ def atualizar_aluno(request, pk):
         formulario = AlunoForm(request.POST, instance=id_aluno)
         if formulario.is_valid():
             formulario.save()
-            redirect('mostrar_turmas')
+            return redirect('mostrar_turmas')
         else:
             formulario = AlunoForm(instance=id_aluno)
-            return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Criar esse aluno?"})
+        return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Atualizar esse aluno?"})
+        
     except Exception as e:
         print('erro' , e)
         return HttpResponseNotFound("Erro ao tentar editar o aluno.")
+
+def excluir_aluno(request, pk):
+    aluno = get_object_or_404(Aluno, pk=pk)
+    try:
+        formulario = AlunoForm(request.POST, instance=aluno)
+        if formulario.is_valid():
+            aluno.delete()
+            return redirect('mostrar_turmas')
+        else:
+            formulario = AlunoForm(instance=aluno)
+        return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Deseja excluir esse aluno?"})
+    except Exception as e:
+        print('erro: ' , e)
+        return HttpResponseNotFound("Erro ao tentar excluir a aluno" )
