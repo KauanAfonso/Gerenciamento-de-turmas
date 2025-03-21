@@ -11,6 +11,12 @@ class TurmasForm(forms.ModelForm):
         model = Turma
         fields = '__all__'
 
+        labels = {
+            'serie_turma':"Chose class series"
+        }
+
+        
+
 class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
@@ -40,3 +46,11 @@ class AulasForm(forms.ModelForm):
         model = Aulas
         pk_turma = forms.IntegerField(label='aa', required=False)  # Adicionando o campo dentro da classe meta para que o valor padrão ja apareça la
         fields = '__all__'
+
+        labels = {
+            'pk_professor': 'Chose a teacher:',
+            'pk_turma': 'Chose a classroom:',
+            'pk_materia': 'Chose a subject:',
+            'pk_horario': 'Chose a class time:',
+            'pk_dias_semana': "Chose a week's day:"
+        }

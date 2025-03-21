@@ -136,11 +136,14 @@ def atualizar_aluno(request, pk):
     id_aluno = get_object_or_404(Aluno, pk=pk)
     try:
         formulario = AlunoForm(request.POST, instance=id_aluno)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('mostrar_turmas')
+        if request.method == "POST":
+            if formulario.is_valid():
+                formulario.save()
+                return redirect('mostrar_turmas')
+            else:
+                return render(request, 'form_aula.html', {'form': formulario, "mensagem": "Erro ao tentar atualizar o aluno."})
         else:
-            formulario = AlunoForm(instance=id_aluno)
+             formulario = AlunoForm(instance=id_aluno)
         return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Atualizar esse aluno?"})
         
     except Exception as e:
