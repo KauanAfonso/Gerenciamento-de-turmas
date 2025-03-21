@@ -3,6 +3,7 @@ from django.urls import path
 from . import adm
 from . import views
 
+
 urlpatterns = [
     path("turmas/", views.mostrar_turmas , name='mostrar_turmas'),
     path("turmas/detalhes/<int:pk>", views.visualizar_sala , name='detalhes_turmas'),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('turmas/deletar/<int:pk>' , adm.excluir_turma, name='excluir_turma'),
     path("turmas/criar_aluno/<int:pk>", adm.criar_aluno, name='criar_aluno'),
     path("turmas/editar_aluno/<int:pk>", adm.atualizar_aluno, name='atualizar_aluno'),
-    path('turmas/excluir_aluno/<int:pk>', adm.excluir_aluno, name='excluir_aluno')
+    path('turmas/excluir_aluno/<int:pk>', adm.excluir_aluno, name='excluir_aluno'),
+    path('', views.login, name='login'),
 ]

@@ -54,3 +54,4 @@ class AulasForm(forms.ModelForm):
             'pk_horario': 'Chose a class time:',
             'pk_dias_semana': "Chose a week's day:"
         }
+

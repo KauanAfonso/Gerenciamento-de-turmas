@@ -3,8 +3,8 @@ from .models import *
 from django.http import HttpResponseNotFound
 from .forms import *
 from django.contrib import messages
-
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required , user_passes_test
 
 ''''
 
@@ -66,7 +66,8 @@ def atualizar_aula(request,pk):
 
 
 #Turma
-
+@login_required
+# @user_passes_test()
 def criar_turma(request):
     try:
         if request.method == 'POST':
@@ -75,10 +76,10 @@ def criar_turma(request):
             if formulario.is_valid():
                 formulario.save()
                 return redirect("mostrar_turmas") 
-                
+                    
         else:
             formulario = TurmasForm()
-        return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Criar essa turma?"})
+            return render(request, 'form_aula.html', {'form':formulario, "mensagem":"Criar essa turma?"})
     except Exception as e:
         print('erro' , e)
         return HttpResponseNotFound("Erro ao tentar criar turma.")
@@ -163,3 +164,4 @@ def excluir_aluno(request, pk):
     except Exception as e:
         print('erro: ' , e)
         return HttpResponseNotFound("Erro ao tentar excluir a aluno" )
+    

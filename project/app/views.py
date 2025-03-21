@@ -2,9 +2,22 @@ from django.shortcuts import render,redirect , get_object_or_404
 from .models import *
 from django.http import HttpResponseNotFound, HttpResponse
 from .forms import *
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.forms import AuthenticationForm
+
 
 # Create your views here.
 
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(user)
+            redirect('mostrar_turmas')
+    else:
+        form = AuthenticationForm()
+    return render(request, "login.html", {'form': form})
 
 def mostrar_turmas(request):
     try:
@@ -68,7 +81,6 @@ def visualizar_turmas_professor(request, pk):
         return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})
     except Exception as e:
         print(f"Error: {e}")
-        
         return HttpResponseNotFound("Ocorreu um erro ao tentar carregar a turma e os professores.") #mensagem de erro caso for nescessario
 
 
