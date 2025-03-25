@@ -8,13 +8,15 @@ from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
-def login(request):
+def logar(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(user)
-            redirect('mostrar_turmas')
+            user = form.get_user() #pegando o user
+            login(request,user) #passe o request e o user
+            return redirect('mostrar_turmas')
+        else:
+            print('usuário inválido')
     else:
         form = AuthenticationForm()
     return render(request, "login.html", {'form': form})

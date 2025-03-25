@@ -1,5 +1,5 @@
 <h1>{{ turma.serie_turma }}</h1><br>
-<a href="{%url 'logout_view'%}">SAIR</a>
+{% comment %} <a href="{%url 'logout_view'%}">SAIR</a> {% endcomment %}
 <a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
 <ul>
     {% if aulas %}
