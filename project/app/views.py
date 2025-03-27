@@ -21,6 +21,13 @@ def logar(request):
         form = AuthenticationForm()
     return render(request, "login.html", {'form': form})
 
+def logout_view(request):
+    try:
+        logout(request)
+    except Exception as e:
+        print('erro', e)
+    return redirect('login')
+
 def mostrar_turmas(request):
     try:
         turma = Turma.objects.all()

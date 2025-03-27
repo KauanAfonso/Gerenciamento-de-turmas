@@ -21,10 +21,11 @@ class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
         pk_turma = forms.IntegerField(label='aa', required=False)  # Adicionando o campo dentro da classe meta para que o valor padrão ja apareça la
-        fields = ['username', 'email', 'first_name', 'last_name', 'ra', 'data_nascimento',  'pk_turma', 'foto_perfil', 'is_active']
+        fields = ['username', 'password', 'email', 'first_name', 'last_name', 'ra', 'data_nascimento',  'pk_turma', 'foto_perfil', 'is_active']
 
         labels = {
             'username': 'Nome de Usuário',
+            'password':"Senha",
             'email': 'Endereço de E-mail',
             'first_name': 'Primeiro Nome',
             'last_name': 'Sobrenome',

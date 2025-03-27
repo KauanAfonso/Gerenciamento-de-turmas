@@ -1,7 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import Group, AbstractUser
+from django.contrib.auth.models import Group, AbstractUser, BaseUserManager
 
-# Create your models here.
+
+class CustomUserManager(BaseUserManager):
+    def create_superuser(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        # Garante que superusuário pode ser criado sem precisar de pk_turma
+        extra_fields.pop("pk_turma", None)
+
+        return self.create_user(username, email, password, **extra_fields)
+
 class Professor(models.Model):
     nome = models.CharField(max_length=255)
 
