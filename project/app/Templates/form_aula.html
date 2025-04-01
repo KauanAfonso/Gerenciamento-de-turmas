@@ -10,7 +10,7 @@
 <form action="" method="post">
 
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}    
 
 <h2>{{mensagem}}</h2>
     

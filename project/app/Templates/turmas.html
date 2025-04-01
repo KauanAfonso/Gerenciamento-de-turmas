@@ -1,7 +1,7 @@
 <h1>turmas</h1>
 <a href="{% url 'logout_view' %}">Sair</a>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_superuser %}
 <a href="{% url 'criar_turma' %}">Criar Turma</a>
 {% endif %}
 <ul>
@@ -9,8 +9,11 @@
 
 <li>{{i.serie_turma}}</li>
 <a href="{% url 'detalhes_turmas' i.pk %}">Detalhes</a>
-<a href="{% url 'atualizar_turma' i.pk %}">Atualizar Turma</a>
-<a href="{% url 'excluir_turma' i.pk %}">Excluir turma</a>
+
+{% if user.is_authenticated and user.is_superuser %}
+    <a href="{% url 'atualizar_turma' i.pk %}">Atualizar Turma</a>
+    <a href="{% url 'excluir_turma' i.pk %}">Excluir turma</a>
+{% endif %}
 
 {%endfor%}
 

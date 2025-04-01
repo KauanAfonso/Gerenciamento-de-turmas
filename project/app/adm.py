@@ -15,6 +15,9 @@ Aqui serão as ações do administrador
 
 '''
 
+def verificate_superUSer(user):
+     return user.is_authenticated and user.is_superuser
+
 def criar_aula(request,pk):
     try:
         if request.method == 'POST':
@@ -67,7 +70,7 @@ def atualizar_aula(request,pk):
 
 #Turma
 @login_required
-# @user_passes_test()
+@user_passes_test(verificate_superUSer)
 def criar_turma(request):
     try:
         if request.method == 'POST':

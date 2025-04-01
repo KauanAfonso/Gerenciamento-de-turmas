@@ -1,11 +1,15 @@
 <h1>{{ turma.serie_turma }}</h1><br>
 {% comment %} <a href="{%url 'logout_view'%}">SAIR</a> {% endcomment %}
-<a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
+{% if user.is_authenticated and user.is_superuser%}
+    <a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
+{%endif%}
 <ul>
     {% if aulas %}
         {% for i in aulas %}
-            <a href="{% url 'deletar_aula' pk=i.pk %}">Deletar Aula</a>
-            <a href="{% url 'atualizar_aula' pk=i.pk %}">Atualizar Aula</a>
+            {% if user.is_authenticated and user.is_superuser%}
+                <a href="{% url 'deletar_aula' pk=i.pk %}">Deletar Aula</a>
+                <a href="{% url 'atualizar_aula' pk=i.pk %}">Atualizar Aula</a>
+            {%endif%}
             <li>Professor: {{ i.professor }}</li>
             <li>Matéria: {{ i.materia }}</li>
             <li>Horário: {{ i.horario }}</li>
@@ -22,14 +26,17 @@
 
 
 <ul>
-    <a href="{%url 'criar_aluno' pk=turma.pk%}">Criar aluno</a>
+    {% if user.is_authenticated and user.is_superuser%}
+        <a href="{%url 'criar_aluno' pk=turma.pk%}">Criar aluno</a>
+    {%endif%}
     {% if alunos %}
         {% for i in alunos %}
             <li>Aluno: {{ i.first_name }} {{ i.last_name }}</li>  
-           
-            <a href="{% url 'atualizar_aluno' pk=i.pk %}">Atualizar aluno</a>
-            <a href="{% url 'excluir_aluno' pk=i.pk %}">excluir aluno</a>
-            <br>
+            {% if user.is_authenticated and user.is_superuser%}
+                <a href="{% url 'atualizar_aluno' pk=i.pk %}">Atualizar aluno</a>
+                <a href="{% url 'excluir_aluno' pk=i.pk %}">excluir aluno</a>
+                <br>
+            {%endif%}
         {% endfor %}
     {% else %}
         <li>Nenhum aluno cadastrado.</li>
