@@ -1,5 +1,6 @@
 from django import forms
 from .models import Professor, Turma, Aluno, Aulas
+from django.contrib.auth.models import User
 
 class ProfessorForm(forms.ModelForm):
     class Meta:
@@ -40,17 +41,16 @@ class AlunoForm(forms.ModelForm):
             'data_nascimento': forms.DateInput(attrs={'type': 'date'}),  # Usando DateInput para o campo de data
             
         }
+
+    #Deixar fora da classe meta, esse metodo serve para hashar a senha antes de definir ela e utilizar ela da maneira correta
+    def save(self, commit=True):
+        aluno = super().save(commit=False)  # Cria o objeto aluno sem salvar ainda
+        aluno.set_password(self.cleaned_data['password'])  # Aplica o hash na senha
+        if commit:
+            aluno.save()  # Salva o aluno no banco de dados
+        return aluno
         
-        def save(self, commit=True):
-            user = super().save(commit=False)
-        
-        # Se uma nova senha for fornecida, criptografa ela
-            if self.cleaned_data.get('password'):
-                user.password = make_password(self.cleaned_data['password'])
-        
-            if commit:
-                user.save()
-            return user
+
 
 class AulasForm(forms.ModelForm):
    
