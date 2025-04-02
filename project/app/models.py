@@ -1,8 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import Group, AbstractUser
 
-class Professor(models.Model):
-    nome = models.CharField(max_length=255)
+   
+class Usuario(AbstractUser):
+    is_teacher = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    
+
+class Professor(Usuario):
+    cod_professor = models.IntegerField(unique=True)
 
     def __str__(self):
         return self.nome
@@ -13,7 +19,7 @@ class Turma(models.Model):
     def __str__(self):
         return self.serie_turma
     
-class Aluno(AbstractUser):
+class Aluno(Usuario):
     ra = models.CharField(max_length=10, unique=True, null=True, blank=True)
     data_nascimento = models.DateField(null=True, blank=True)
     foto_perfil = models.ImageField(upload_to='fotos_perfil/', null=True, blank=True)
