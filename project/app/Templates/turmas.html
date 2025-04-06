@@ -1,6 +1,9 @@
+{%  extends "base.html" %}
+
 <h1>turmas</h1>
 <a href="{% url 'logout_view' %}">Sair</a>
 
+{% block content %}
 {% if user.is_authenticated and user.is_superuser %}
 <a href="{% url 'criar_turma' %}">Criar Turma</a>
 {% endif %}
@@ -18,3 +21,5 @@
 {%endfor%}
 
 </ul>
+
+{%  endblock %}

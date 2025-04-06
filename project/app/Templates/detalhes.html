@@ -1,3 +1,7 @@
+{%  extends "base.html" %}
+
+
+{%block content %}
 <h1>{{ turma.serie_turma }}</h1><br>
 {% comment %} <a href="{%url 'logout_view'%}">SAIR</a> {% endcomment %}
 {% if user.is_authenticated and user.is_superuser%}
@@ -42,3 +46,4 @@
         <li>Nenhum aluno cadastrado.</li>
     {% endif %}
 </ul>
+{% endblock %}      

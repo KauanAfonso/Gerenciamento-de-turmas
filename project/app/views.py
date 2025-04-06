@@ -78,10 +78,11 @@ def visualizar_turmas_professor(request, pk):
         for aula in aulas:
             professor_aulas.append(
                 {
+                    'prof':professor,
                     'turma': aula.pk_turma,
                     'materia': aula.pk_materia,
                     'horario': aula.pk_horario,
-                    'dia_semana': aula.pk_dias_semana
+                    'dia_semana': aula.pk_dias_semana,
                 }
             )
         return render(request, 'prof_detalhes.html' , {'professores':professor_aulas})
