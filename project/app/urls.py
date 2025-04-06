@@ -18,7 +18,8 @@ urlpatterns = [
     path("turmas/criar_aluno/<int:pk>", adm.criar_aluno, name='criar_aluno'),
     path("turmas/editar_aluno/<int:pk>", adm.atualizar_aluno, name='atualizar_aluno'),
     path('turmas/excluir_aluno/<int:pk>', adm.excluir_aluno, name='excluir_aluno'),
-    path('turmas/', views.logout_view , name='logout_view'),
     path('', views.logar, name='login'),
+    path('logout/', views.logout_view , name='logout_view'),
+
 
 ]
