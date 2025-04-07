@@ -2,6 +2,7 @@
 from django.urls import path
 from . import adm
 from . import views
+from django.contrib.auth import views as auth_views #Chamando as views prontas
 
 
 urlpatterns = [
@@ -18,8 +19,11 @@ urlpatterns = [
     path("turmas/criar_aluno/<int:pk>", adm.criar_aluno, name='criar_aluno'),
     path("turmas/editar_aluno/<int:pk>", adm.atualizar_aluno, name='atualizar_aluno'),
     path('turmas/excluir_aluno/<int:pk>', adm.excluir_aluno, name='excluir_aluno'),
-    path('', views.logar, name='login'),
+    path('accounts/login/', views.logar, name='login'),
     path('logout/', views.logout_view , name='logout_view'),
-
+    path('account/reset', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('account/reset/sent', auth_views.PasswordChangeDoneView.as_view(), name='password_reset_done'),
+    path('account/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('account/reseet/completed', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 ]

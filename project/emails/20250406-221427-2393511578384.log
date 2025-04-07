@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: kauanafon3@gmail.com
+Date: Mon, 07 Apr 2025 01:14:27 -0000
+Message-ID: <174398846787.15472.14051440484510924515@kauan>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/account/reset/Nw/cnuz43-89121ea8397bc049f8cbe40c667279db/
+
+Your username, in case you’ve forgotten: cris_uuy
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------
