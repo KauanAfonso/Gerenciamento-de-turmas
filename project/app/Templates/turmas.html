@@ -1,25 +1,36 @@
-{%  extends "base.html" %}
-
-<h1>turmas</h1>
-<a href="{% url 'logout_view' %}">Sair</a>
+{% extends "base.html" %}
 
 {% block content %}
-{% if user.is_authenticated and user.is_superuser %}
-<a href="{% url 'criar_turma' %}">Criar Turma</a>
-{% endif %}
-<ul>
-{% for i in turmas %}
+<div class="container mt-4">
 
-<li>{{i.serie_turma}}</li>
-<a href="{% url 'detalhes_turmas' i.pk %}">Detalhes</a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Turmas</h1>
+        <a href="{% url 'logout_view' %}" class="btn btn-outline-secondary">Sair</a>
+    </div>
 
-{% if user.is_authenticated and user.is_superuser %}
-    <a href="{% url 'atualizar_turma' i.pk %}">Atualizar Turma</a>
-    <a href="{% url 'excluir_turma' i.pk %}">Excluir turma</a>
-{% endif %}
+    {% if user.is_authenticated and user.is_superuser %}
+        <div class="mb-3">
+            <a href="{% url 'criar_turma' %}" class="btn btn-success">Criar Turma</a>
+        </div>
+    {% endif %}
 
-{%endfor%}
+    <div class="row">
+        {% for i in turmas %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.serie_turma }}</h5>
+                        <a href="{% url 'detalhes_turmas' i.pk %}" class="btn btn-primary btn-sm">Ver Detalhes</a>
 
-</ul>
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <a href="{% url 'atualizar_turma' i.pk %}" class="btn btn-warning btn-sm ms-1">Atualizar</a>
+                            <a href="{% url 'excluir_turma' i.pk %}" class="btn btn-danger btn-sm ms-1">Excluir</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
-{%  endblock %}
+</div>
+{% endblock %}

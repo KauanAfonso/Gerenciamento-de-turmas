@@ -1,49 +1,65 @@
-{%  extends "base.html" %}
+{% extends "base.html" %}
 
+{% block content %}
+<div class="container mt-4">
 
-{%block content %}
-<h1>{{ turma.serie_turma }}</h1><br>
-{% comment %} <a href="{%url 'logout_view'%}">SAIR</a> {% endcomment %}
-{% if user.is_authenticated and user.is_superuser%}
-    <a href="{%url 'criar_aula' pk=turma.pk %}">Criar aula</a>
-{%endif%}
-<ul>
-    {% if aulas %}
-        {% for i in aulas %}
-            {% if user.is_authenticated and user.is_superuser%}
-                <a href="{% url 'deletar_aula' pk=i.pk %}">Deletar Aula</a>
-                <a href="{% url 'atualizar_aula' pk=i.pk %}">Atualizar Aula</a>
-            {%endif%}
-            <li>Professor: {{ i.professor }}</li>
-            <li>Matéria: {{ i.materia }}</li>
-            <li>Horário: {{ i.horario }}</li>
-            <li>Dia da semana: {{ i.dia_semana}}</li>
-            <br>
-        {% endfor %}
-    {% else %}
-        <li>Nenhum professor da sala.</li>
-    {% endif %}
-</ul>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">{{ turma.serie_turma }}</h1>
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'criar_aula' pk=turma.pk %}" class="btn btn-primary">Criar Aula</a>
+        {% endif %}
+    </div>
 
+    <div class="row">
+        {% if aulas %}
+            {% for i in aulas %}
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ i.materia }}</h5>
+                            <p class="card-text"><strong>Professor:</strong> {{ i.professor }}</p>
+                            <p class="card-text"><strong>Horário:</strong> {{ i.horario }}</p>
+                            <p class="card-text"><strong>Dia da semana:</strong> {{ i.dia_semana }}</p>
+                            
+                            {% if user.is_authenticated and user.is_superuser %}
+                                <a href="{% url 'atualizar_aula' pk=i.pk %}" class="btn btn-warning btn-sm">Atualizar</a>
+                                <a href="{% url 'deletar_aula' pk=i.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">Nenhuma aula cadastrada para essa turma.</p>
+        {% endif %}
+    </div>
 
-<h1>Alunos</h1>
+    <hr class="my-4">
 
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Alunos</h2>
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'criar_aluno' pk=turma.pk %}" class="btn btn-success">Criar Aluno</a>
+        {% endif %}
+    </div>
 
-<ul>
-    {% if user.is_authenticated and user.is_superuser%}
-        <a href="{%url 'criar_aluno' pk=turma.pk%}">Criar aluno</a>
-    {%endif%}
-    {% if alunos %}
-        {% for i in alunos %}
-            <li>Aluno: {{ i.first_name }} {{ i.last_name }}</li>  
-            {% if user.is_authenticated and user.is_superuser%}
-                <a href="{% url 'atualizar_aluno' pk=i.pk %}">Atualizar aluno</a>
-                <a href="{% url 'excluir_aluno' pk=i.pk %}">excluir aluno</a>
-                <br>
-            {%endif%}
-        {% endfor %}
-    {% else %}
-        <li>Nenhum aluno cadastrado.</li>
-    {% endif %}
-</ul>
-{% endblock %}      
+    <ul class="list-group">
+        {% if alunos %}
+            {% for i in alunos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ i.first_name }} {{ i.last_name }}
+                    {% if user.is_authenticated and user.is_superuser %}
+                        <div>
+                            <a href="{% url 'atualizar_aluno' pk=i.pk %}" class="btn btn-sm btn-outline-primary">Atualizar</a>
+                            <a href="{% url 'excluir_aluno' pk=i.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="list-group-item text-muted">Nenhum aluno cadastrado.</li>
+        {% endif %}
+    </ul>
+
+</div>
+{% endblock %}
