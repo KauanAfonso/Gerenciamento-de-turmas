@@ -2,64 +2,70 @@
 
 {% block content %}
 <div class="container mt-4">
-
+    <!-- Cabeçalho -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">{{ turma.serie_turma }}</h1>
         {% if user.is_authenticated and user.is_superuser %}
-            <a href="{% url 'criar_aula' pk=turma.pk %}" class="btn btn-primary">Criar Aula</a>
+            <a href="{% url 'criar_aula' pk=turma.pk %}" class="btn" style='background-color: #0590afcc; color:white;'>Criar Aula</a>
         {% endif %}
     </div>
 
+    <!-- Grid principal -->
     <div class="row">
-        {% if aulas %}
-            {% for i in aulas %}
-                <div class="col-md-6 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ i.materia }}</h5>
-                            <p class="card-text"><strong>Professor:</strong> {{ i.professor }}</p>
-                            <p class="card-text"><strong>Horário:</strong> {{ i.horario }}</p>
-                            <p class="card-text"><strong>Dia da semana:</strong> {{ i.dia_semana }}</p>
-                            
+        <!-- Coluna das aulas - 8/12 -->
+        <div class="col-md-8">
+            <div class="row">
+                {% if aulas %}
+                    {% for i in aulas %}
+                        <div class="col-md-6 mb-4"> <!-- Dois cards por linha -->
+                            <div class="card h-100" style='background-color: #0590afcc; color:white;'>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ i.materia }}</h5>
+                                    <p class="card-text"><strong>Professor:</strong> {{ i.professor }}</p>
+                                    <p class="card-text"><strong>Horário:</strong> {{ i.horario }}</p>
+                                    <p class="card-text"><strong>Dia da semana:</strong> {{ i.dia_semana }}</p>
+                                    
+                                    {% if user.is_authenticated and user.is_superuser %}
+                                        <a href="{% url 'atualizar_aula' pk=i.pk %}" class="btn btn-light btn-sm">Atualizar</a>
+                                        <a href="{% url 'deletar_aula' pk=i.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Nenhuma aula cadastrada para essa turma.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Coluna de alunos - 4/12 -->
+        <div class="col-md-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Alunos</h2>
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'criar_aluno' pk=turma.pk %}" class="btn btn-success btn-sm">Criar Aluno</a>
+                {% endif %}
+            </div>
+
+            <ul class="list-group">
+                {% if alunos %}
+                    {% for i in alunos %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ i.first_name }} {{ i.last_name }}
                             {% if user.is_authenticated and user.is_superuser %}
-                                <a href="{% url 'atualizar_aula' pk=i.pk %}" class="btn btn-warning btn-sm">Atualizar</a>
-                                <a href="{% url 'deletar_aula' pk=i.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                <div>
+                                    <a href="{% url 'atualizar_aluno' pk=i.pk %}" class="btn btn-sm btn-outline" style='background-color: #0590afcc; color:white;'>Atualizar</a>
+                                    <a href="{% url 'excluir_aluno' pk=i.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                                </div>
                             {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-muted">Nenhuma aula cadastrada para essa turma.</p>
-        {% endif %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item text-muted">Nenhum aluno cadastrado.</li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-
-    <hr class="my-4">
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Alunos</h2>
-        {% if user.is_authenticated and user.is_superuser %}
-            <a href="{% url 'criar_aluno' pk=turma.pk %}" class="btn btn-success">Criar Aluno</a>
-        {% endif %}
-    </div>
-
-    <ul class="list-group">
-        {% if alunos %}
-            {% for i in alunos %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ i.first_name }} {{ i.last_name }}
-                    {% if user.is_authenticated and user.is_superuser %}
-                        <div>
-                            <a href="{% url 'atualizar_aluno' pk=i.pk %}" class="btn btn-sm btn-outline-primary">Atualizar</a>
-                            <a href="{% url 'excluir_aluno' pk=i.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
-                        </div>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        {% else %}
-            <li class="list-group-item text-muted">Nenhum aluno cadastrado.</li>
-        {% endif %}
-    </ul>
-
 </div>
 {% endblock %}
