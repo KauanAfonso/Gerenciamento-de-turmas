@@ -26,6 +26,7 @@ def criar_aula(request,pk):
 
             if formulario.is_valid():
                 formulario.save()
+                messages.success(request, "Aula criada com sucesso!")
                 return redirect("mostrar_turmas") 
                 
         else:
@@ -58,6 +59,7 @@ def atualizar_aula(request,pk):
 
             if formulario.is_valid():
                 formulario.save()
+                messages.success(request, "Aula Atualizada com sucesso!")
                 return redirect("detalhes.html") 
                 
         else:
@@ -78,7 +80,8 @@ def criar_turma(request):
             formulario = TurmasForm(request.POST)
 
             if formulario.is_valid():
-                formulario.save()
+                formulario.save() 
+                messages.success(request, "Turma criada com sucesso!")
                 return redirect("mostrar_turmas") 
                     
         else:
@@ -95,6 +98,7 @@ def atualizar_turma(request,pk):
             formulario = TurmasForm(request.POST, instance=turma) #cirando um form com instaancia de um id especifico
             if formulario.is_valid():
                 formulario.save()
+                messages.success(request, "Turma atualizada com sucesso!")
                 return redirect('mostrar_turmas')
             else:
                 messages.error(request, "Erro ao tentar atualizar a turma. Verifique os dados e tente novamente.")
@@ -128,6 +132,7 @@ def criar_aluno(request,pk):
         if request.method == 'POST':
             formulario = AlunoForm(request.POST)
             if formulario.is_valid():
+                messages.success(request, "Aluno criado com sucesso!")
                 formulario.save()
                 return redirect("mostrar_turmas")
         else:
