@@ -1,7 +1,29 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
 <form method="POST">
+    <div class="container">
+        <!-- Formulário de Login -->
+        <div class="login-form">
+            <h2>Login</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Logar</button>
+                <div class="forgot-password">
+                    <p>Esqueci minha senha</p>
+                </div>
+            </form>
+        </div>
 
-    {% csrf_token %}
-    {{ form.as_p }}
+        <!-- Imagem ao lado -->
+        <div class="login-image">
+            <img src="{% static 'logo.png' %}" alt="Imagem de Login">
+        </div>
+    </div>
 
-<button type="submit">logar</button>
 </form>
+
+

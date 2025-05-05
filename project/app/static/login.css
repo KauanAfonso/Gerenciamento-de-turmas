@@ -1,0 +1,104 @@
+/* Resetando algumas configurações */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Definindo o estilo geral da página */
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+/* Container principal que vai alinhar o conteúdo */
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Estilo do formulário de login */
+.login-form {
+    flex: 1;
+    padding: 40px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.login-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form button {
+    padding: 10px 20px;
+    background-color: #0590afcc;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: end !important;
+}
+
+.login-form input{
+    padding: 5px;
+    margin: 2;
+
+}
+
+
+
+.login-form button:hover {
+    background-color: #0590afa4;
+}
+
+.forgot-password {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo da imagem do lado direito */
+.login-image {
+    flex: 1;
+    background-color: #0590afcc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-image img {
+    max-width: 100%;
+    height: auto;
+}
